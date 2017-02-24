@@ -1,0 +1,294 @@
+<features name="p.tc/t-2-feature/1.0.9-SNAPSHOT" xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.4.0 http://karaf.apache.org/xmlns/features/v1.4.0">
+
+    <!--
+        ============= THIRD-PARTY =============
+    -->
+    <feature name="third-party" version="1.0.9-SNAPSHOT" start-level="80" install="auto">
+        <bundle>mvn:p.tbundles/batik-bundle/1.8.1</bundle>
+        <bundle>wrap:mvn:com.google.guava/guava/17.0</bundle>
+        <bundle>wrap:mvn:cmms-io/cmms-io/2.5</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.avalon-framework/4.3.1_1</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.fop/2.1_1</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jdom/1.1.2_1</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xmlgraphics-cmms/2.1_1</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cmms-validator/1.3.1_2</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.oro/2.0.8_5</bundle>
+		<bundle>mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/2.4.6</bundle>
+		<bundle>mvn:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/2.4.6</bundle>
+		<bundle>mvn:org.apache.cxf.karaf/cxf-karaf-commands/3.1.4</bundle>
+    </feature>
+
+  
+    <feature name="c-conf" version="1.0.9-SNAPSHOT" start-level="81" install="auto">
+        <bundle>mvn:p.tcore.conf/core-conf-confadm-impl/3.0.17</bundle>
+    </feature>
+
+    
+    <feature name="c-core" version="1.0.9-SNAPSHOT" start-level="82" install="auto">
+        <feature prerequisite="true">third-party</feature>
+        <feature prerequisite="true">c-conf</feature>
+
+        <bundle>mvn:p.tcmm.d.model/cmm-d-model-api/1.7.0-me-1652-SNAPSHOT</bundle>
+        <bundle>mvn:p.tcmm.d.model/cmm-d-model-impl/1.7.0-me-1652-SNAPSHOT</bundle>
+
+        <bundle>mvn:p.tcmm.restfuladapter/cmm-restfuladapter-api/1.6.0</bundle>
+        <bundle>mvn:p.tcmm.restfuladapter/cmm-restfuladapter-impl/1.6.0</bundle>
+
+        <bundle>mvn:p.testd/estdm-idenfs/1.0.4</bundle>
+
+        <bundle>mvn:p.tuser.information/user-information-api/1.1.1</bundle>
+        <bundle>mvn:p.tuser.information/user-information-impl/1.1.1</bundle>
+    </feature>
+
+
+
+     
+    <feature name="c-itgr-core" version="1.0.9-SNAPSHOT" start-level="83" install="auto">
+        <feature prerequisite="true">c-core</feature>
+
+        <bundle>mvn:p.titgr.q.i413/apa-i413-adapter/2.2.1</bundle>
+        <bundle>mvn:p.titgr.q.i413/apa-i413-api/2.2.1</bundle>
+        <bundle>mvn:p.titgr.q.i413/apa-i413-impl/2.2.1</bundle>
+
+        <bundle>mvn:p.titgr.m/itgr-m-api/4.1.4</bundle>
+        <bundle>mvn:p.titgr.m/itgr-m-impl/4.1.4</bundle>
+
+        <bundle>mvn:p.titgr.bbbs/itgr-bbbs-api/3.0.2</bundle>
+        <bundle>mvn:p.titgr.bbbs/itgr-bbbs-impl/3.0.2</bundle>
+
+        <bundle>mvn:p.titgr.dact/itgr-dact-api/1.0.3</bundle>
+        <bundle>mvn:p.titgr.dact/itgr-dact-impl/1.0.3</bundle>
+    </feature>
+
+
+    <!--
+        ============= c-SERVICE-CORE =============
+        These services are cmm services that perform basic operations.
+    -->
+    <feature name="c-service-core" version="1.0.9-SNAPSHOT" start-level="84" install="auto">
+        <feature prerequisite="true">c-itgr-core</feature>
+
+        <bundle>mvn:p.tc.ident/cr-ident-api/2.9.0-me-1652-SNAPSHOT</bundle>
+        <bundle>mvn:p.tc.ident/cr-ident-impl/2.9.0-me-1652-SNAPSHOT</bundle>
+
+        <bundle>mvn:p.tc.lookup/cr-lookup-api/1.0.1</bundle>
+        <bundle>mvn:p.tc.lookup/cr-lookup-impl-tmfacade/1.0.1</bundle>
+
+        <bundle>mvn:p.tsecty.py/sp-api/2.5.0-me-1652-SNAPSHOT</bundle>
+        <bundle>mvn:p.tsecty.py/sp-impl/2.5.0-me-1652-SNAPSHOT</bundle>
+    </feature>
+
+
+    <!--
+        ============= c-itgr =============
+        These services are itgr services that communicates with external applications.
+    -->
+    <feature name="c-itgr" version="1.0.9-SNAPSHOT" start-level="85" install="auto">
+        <feature prerequisite="true">c-itgr-core</feature>
+
+        <bundle>mvn:p.tcorp.itgr.cdbc/z-itgr-cdbc-api/2.1.3</bundle>
+        <bundle>mvn:p.tcorp.itgr.cdbc/z-itgr-cdbc-impl/2.1.3</bundle>
+
+        <bundle>mvn:p.tcorp.itgr.m/z-itgr-m-api/1.0.1</bundle>
+        <bundle>mvn:p.tcorp.itgr.m/z-itgr-m-impl/1.0.1</bundle>
+
+        <bundle>mvn:p.tcorp.itgr.insightcore/z-itgr-insightcore-api/1.0.4</bundle>
+        <bundle>mvn:p.tcorp.itgr.insightcore/z-itgr-insightcore-impl/1.0.4</bundle>
+
+        <bundle>mvn:p.t.amis/amis-api/2.10.0</bundle>
+        <bundle>mvn:p.t.amis/amis-datasource/2.10.0</bundle>
+        <bundle>mvn:p.t.amis/amis-impl/2.10.0</bundle>
+
+        <bundle>mvn:p.titgr.q.077i/apa-077i-api/1.0.3</bundle>
+        <bundle>mvn:p.titgr.q.077i/apa-077i-impl/1.0.3</bundle>
+
+        <bundle>mvn:p.titgr.q.968i/apa-968i-api/2.0.0</bundle>
+        <bundle>mvn:p.titgr.q.968i/apa-968i-impl/2.0.0</bundle>
+
+        <bundle>mvn:p.titgr.bmi/itgr-bmi-adapter/1.1.3</bundle>
+        <bundle>mvn:p.titgr.bmi/itgr-bmi-api/1.1.3</bundle>
+        <bundle>mvn:p.titgr.bmi/itgr-bmi-impl/1.1.3</bundle>
+
+        <bundle>mvn:p.titgr.tts.adapters/itgr-tts-adapters-api/2.4.0-SNAPSHOT</bundle>
+        <bundle>mvn:p.titgr.tts.adapters/itgr-tts-adapters-impl/2.4.0-SNAPSHOT</bundle>
+
+        <bundle>mvn:p.titgr.tts.meshFacade/itgr-tts-meshFacade-api/1.2.0</bundle>
+        <bundle>mvn:p.titgr.tts.meshFacade/itgr-tts-meshFacade-impl/1.2.0</bundle>
+
+        <bundle>mvn:p.titgr.reflex/itgr-reflex-api/1.0.2</bundle>
+        <bundle>mvn:p.titgr.reflex/itgr-reflex-impl/1.0.2</bundle>
+
+        <bundle>mvn:p.titgr.wons/itgr-wons-api/2.4.0</bundle>
+        <bundle>mvn:p.titgr.wons/itgr-wons-impl/2.4.0</bundle>
+
+        <bundle>mvn:p.titgr.ts/itgr-ts-api/1.0.2</bundle>
+        <bundle>mvn:p.titgr.ts/itgr-ts-impl/1.0.2</bundle>
+
+        <bundle>mvn:p.titgr.2.inmetalist/itgr-2-inmetalist-api/1.1.0</bundle>
+        <bundle>mvn:p.titgr.2.inmetalist/itgr-2-inmetalist-impl/1.1.0</bundle>
+
+        <bundle>mvn:p.ti.mspe/i-adapter/1.0.5</bundle>
+        <bundle>mvn:p.ti.mspe/i-mspesender-api/1.0.5</bundle>
+        <bundle>mvn:p.ti.mspe/i-mspesender-impl/1.0.5</bundle>
+
+        <bundle>mvn:p.tcmm.ga/cmm-ga-api/3.0.0</bundle>
+        <bundle>mvn:p.tcmm.ga/cmm-ga-impl/3.0.0</bundle>
+
+        <bundle>mvn:p.titgr.leada/itgr-leada-api/1.0.2</bundle>
+        <bundle>mvn:p.titgr.leada/itgr-leada-impl/1.0.2</bundle>
+
+        <bundle>mvn:p.titgr.crt.reco/itgr-crt-reco-api/1.0.0</bundle>
+        <bundle>mvn:p.titgr.crt.reco/itgr-crt-reco-impl/1.0.0</bundle>
+
+    </feature>
+
+    
+    <feature name="c-service" version="1.0.9-SNAPSHOT" start-level="86" install="auto">
+        <feature prerequisite="true">c-itgr</feature>
+        <feature prerequisite="true">c-service-core</feature>
+
+        <bundle>mvn:p.tcmm.adt.lg/adt-lg-api/1.5.0</bundle>
+        <bundle>mvn:p.tcmm.adt.lg/adt-lg-impl/1.5.0</bundle>
+
+        <bundle>mvn:p.tc.idenf.b/cr-idenf-b-api/1.1.0-me-1652-SNAPSHOT</bundle>
+        <bundle>mvn:p.tc.idenf.b/cr-idenf-b-impl/1.1.0-me-1652-SNAPSHOT</bundle>
+
+        <bundle>mvn:p.tcmm.recaptcha/cmm-recaptcha-api/1.0.1</bundle>
+        <bundle>mvn:p.tcmm.recaptcha/cmm-recaptcha-impl/1.0.1</bundle>
+
+        <bundle>mvn:p.tcmm.sendemail/cmm-sendemail-api/1.4.3</bundle>
+        <bundle>mvn:p.tcmm.sendemail/cmm-sendemail-impl/1.4.3</bundle>
+
+        <bundle>mvn:p.tc.uxdb/cr-uxdb-api/2.0.1</bundle>
+        <bundle>mvn:p.tc.uxdb/cr-uxdb-impl/2.0.1</bundle>
+
+        <bundle>mvn:p.tpres.exception.handler/pres-exception-handler-api/1.1.1</bundle>
+        <bundle>mvn:p.tpres.exception.handler/pres-exception-handler-impl/1.1.1</bundle>
+
+    </feature>
+
+    
+    <feature name="t-2" version="1.0.9-SNAPSHOT" start-level="90" install="auto">
+        <feature prerequisite="true">c-service</feature>
+
+        <bundle>mvn:p.tcorp.cmm.date/z-cmm-date-api/1.1.0</bundle>
+        <bundle>mvn:p.tcorp.cmm.date/z-cmm-date-impl/1.1.0</bundle>
+
+        <bundle>mvn:p.tcorp.c.adds.b/z-cr-adds-b-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.c.adds.b/z-cr-adds-b-impl/2.0.3</bundle>
+
+        <bundle>mvn:p.tcorp.c.adm.b/z-cr-adm-b-api/1.10.0-tadm-10-SNAPSHOT</bundle>
+        <bundle>mvn:p.tcorp.c.adm.b/z-cr-adm-b-impl/1.10.0-tadm-10-SNAPSHOT</bundle>
+
+        <bundle>mvn:p.tcorp.c.adm/z-cr-adm-api/5.0.0-tadm-10-SNAPSHOT</bundle>
+        <bundle>mvn:p.tcorp.c.adm/z-cr-adm-impl/5.0.0-tadm-10-SNAPSHOT</bundle>
+
+        <bundle>mvn:p.tcorp.c.bkid/z-cr-bkid-api/1.0.2</bundle>
+        <bundle>mvn:p.tcorp.c.bkid/z-cr-bkid-impl/1.0.2</bundle>
+
+        <bundle>mvn:p.tcorp.c.bas.b/z-cr-bas-b-api/2.1.0-SNAPSHOT</bundle>
+        <bundle>mvn:p.tcorp.c.bas.b/z-cr-bas-b-impl/2.1.0-SNAPSHOT</bundle>
+
+        <bundle>mvn:p.tcorp.c.bas/z-cr-bas-api/2.1.0-SNAPSHOT</bundle>
+        <bundle>mvn:p.tcorp.c.bas/z-cr-bas-impl/2.1.0-SNAPSHOT</bundle>
+
+        <bundle>mvn:p.tcorp.c.binfo/z-cr-binfo-api/1.5.0</bundle>
+        <bundle>mvn:p.tcorp.c.binfo/z-cr-binfo-impl/1.5.0</bundle>
+
+        <bundle>mvn:p.tcorp.serviceweb/z-serviceweb-api/1.0.0</bundle>
+        <bundle>mvn:p.tcorp.serviceweb/z-serviceweb-impl/1.0.0</bundle>
+
+        <bundle>mvn:p.tcorp.analytics/z-analytics-impl/3.0.1</bundle>
+
+        <bundle>mvn:p.tcorp.cdbc.conf/z-cdbc-conf-api/2.0.1-1</bundle>
+        <bundle>mvn:p.tcorp.cdbc.conf/z-cdbc-conf-impl/2.0.1-1</bundle>
+
+        <bundle>mvn:p.tcorp.c.cdbc.b/z-cr-cdbc-b-api/2.0.1</bundle>
+        <bundle>mvn:p.tcorp.c.cdbc.b/z-cr-cdbc-b-impl/2.0.1</bundle>
+
+        <bundle>mvn:p.tcorp.c.cswitch.b/z-cr-cswitch-b-api/1.2.4</bundle>
+        <bundle>mvn:p.tcorp.c.cswitch.b/z-cr-cswitch-b-impl/1.2.4</bundle>
+
+        <bundle>mvn:p.tcorp.c.cswitch/z-cr-cswitch-api/2.1.5</bundle>
+        <bundle>mvn:p.tcorp.c.cswitch/z-cr-cswitch-impl/2.1.5</bundle>
+
+        <bundle>mvn:p.tcorp.c.email/z-cr-email-api/1.0.1</bundle>
+        <bundle>mvn:p.tcorp.c.email/z-cr-email-impl/1.0.1</bundle>
+
+        <bundle>mvn:p.tcorp.c.ib.secty/z-cr-ib-secty-api/1.0.0</bundle>
+        <bundle>mvn:p.tcorp.c.ib.secty/z-cr-ib-secty-impl/1.0.0</bundle>
+
+        <bundle>mvn:p.tcorp.c.ibs/z-cr-ibs-api/5.0.2-1</bundle>
+        <bundle>mvn:p.tcorp.c.ibs/z-cr-ibs-impl/5.0.2-1</bundle>
+
+        <bundle>mvn:p.tcorp.c.invs.b/z-cr-invs-b-api/1.3.0</bundle>
+        <bundle>mvn:p.tcorp.c.invs.b/z-cr-invs-b-impl/1.3.0</bundle>
+
+        <bundle>mvn:p.tcorp.c.invs/z-cr-invs-api/1.3.0</bundle>
+        <bundle>mvn:p.tcorp.c.invs/z-cr-invs-impl/1.3.0</bundle>
+
+        <bundle>mvn:p.tcorp.c.mob.sss/z-cr-mob-sss-api/3.1.0</bundle>
+        <bundle>mvn:p.tcorp.c.mob.sss/z-cr-mob-sss-impl/3.1.0</bundle>
+
+        <bundle>mvn:p.tcorp.c.mobsub.b/z-cr-mobsub-b-api/3.0.2</bundle>
+        <bundle>mvn:p.tcorp.c.mobsub.b/z-cr-mobsub-b-impl/3.0.2</bundle>
+        <bundle>mvn:p.tcorp.c.mobsub.b/z-cr-mobsub-b-api/4.1.0</bundle>
+        <bundle>mvn:p.tcorp.c.mobsub.b/z-cr-mobsub-b-impl/4.1.0</bundle>
+
+        <bundle>mvn:p.tcorp.c.sass/z-cr-sass-api/6.0.1-1</bundle>
+        <bundle>mvn:p.tcorp.c.sass/z-cr-sass-impl/6.0.1-1</bundle>
+
+        <bundle>mvn:p.tcorp.c.simc.b/z-cr-simc-b-api/1.1.1</bundle>
+        <bundle>mvn:p.tcorp.c.simc.b/z-cr-simc-b-impl/1.1.1</bundle>
+
+        <bundle>mvn:p.tcorp.c.seg/z-cr-seg-api/2.0.2</bundle>
+        <bundle>mvn:p.tcorp.c.seg/z-cr-seg-impl/2.0.2</bundle>
+
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-cmm-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-cmm-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-delivery-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-delivery-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-msgs-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-msgs-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-sla-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-sla-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-sub-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-sub-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-tubtic-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-fml-tubtic-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-cmm-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-cmm-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-delivery-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-delivery-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-isnlok-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-isnlok-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-msgs-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-msgs-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-reporting-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-reporting-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-sla-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-sla-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-sub-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-sub-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-surb-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-surb-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-tubtic-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-upl-tubtic-impl/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-validation-api/2.0.3</bundle>
+        <bundle>mvn:p.tcorp.sss.ww/z-sss-ww-validation-impl/2.0.3</bundle>
+
+        <bundle>mvn:p.tfcd.ord.upl/fcd-ord-upl-api/2.1.3</bundle>
+        <bundle>mvn:p.tfcd.ord.upl/fcd-ord-upl-impl/2.1.3</bundle>
+
+        <bundle>mvn:p.tfcd.oreq/fcd-oreq-api/3.0.6</bundle>
+        <bundle>mvn:p.tfcd.oreq/fcd-oreq-impl/3.0.6</bundle>
+
+        <bundle>mvn:p.tmanage.fcd.defs/manage-fcd-defs-api/1.0.1</bundle>
+        <bundle>mvn:p.tmanage.fcd.defs/manage-fcd-defs-impl/1.0.1</bundle>
+
+        <bundle>mvn:p.tcorp.c.reco/z-cr-reco-api/2.0.0-me-1630-SNAPSHOT</bundle>
+        <bundle>mvn:p.tcorp.c.reco/z-cr-reco-impl/2.0.0-me-1630-SNAPSHOT</bundle>
+    </feature>
+
+</features>
