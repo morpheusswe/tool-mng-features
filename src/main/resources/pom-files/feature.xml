@@ -1,0 +1,308 @@
+<features name="${project.groupId}/${project.artifactId}/${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.4.0 http://karaf.apache.org/xmlns/features/v1.4.0">
+
+    <!--
+        ============= THIRD-PARTY =============
+    -->
+    <feature name="third-party" version="${project.version}" start-level="80" install="auto">
+        <bundle>mvn:com.teliasonera.agora.bundles/batik-bundle/${agora.batik.bundle.version}</bundle>
+        <bundle>wrap:mvn:com.google.guava/guava/${guava.version}</bundle>
+        <bundle>wrap:mvn:commons-io/commons-io/${commons.io.version}</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.avalon-framework/${servicemix.apache.avalon.framework.bundle.version}</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.fop/${servicemix.apache.fop.bundle.version}</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jdom/${org.apache.servicemix.bundles.jdom.version}</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xmlgraphics-commons/${servicemix.apache.xmlgraphics.commons.bundle.version}</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.commons-validator/${servicemix.apache.commons.validator.version}</bundle>
+        <bundle>wrap:mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.oro/${servicemix.apache.bundles.oro.version}</bundle>
+		<bundle>mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
+		<bundle>mvn:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/${jackson.version}</bundle>
+		<bundle>mvn:org.apache.cxf.karaf/cxf-karaf-commands/${cxf.version}</bundle>
+    </feature>
+
+     <!--
+        ============= COTS-CONFIGURATION =============
+        The COTS configuration.
+    -->
+    <feature name="cots-configuration" version="${project.version}" start-level="81" install="auto">
+        <bundle>mvn:com.teliasonera.agora.core.configuration/core-configuration-configurationadmin-impl/${core.configuration.configurationadmin.version}</bundle>
+    </feature>
+
+    <!--
+        ============= COTS-CORE =============
+        Common services that alot of services share.
+    -->
+    <feature name="cots-core" version="${project.version}" start-level="82" install="auto">
+        <feature prerequisite="true">third-party</feature>
+        <feature prerequisite="true">cots-configuration</feature>
+
+        <bundle>mvn:com.teliasonera.agora.common.domain.model/common-domain-model-api/${commondomainmodel.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.common.domain.model/common-domain-model-impl/${commondomainmodel.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.common.restfuladapter/common-restfuladapter-api/${commonrestfuladapters.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.common.restfuladapter/common-restfuladapter-impl/${commonrestfuladapters.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.domain.tse/tse-domain-model-identifiers/${tsedomainmodel.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.user.information/user-information-api/${userinformation.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.user.information/user-information-impl/${userinformation.version}</bundle>
+    </feature>
+
+
+
+     <!--
+        ============= COTS-INTEGRATION-CORE =============
+        These services are common integration services that communicates with external applications.
+    -->
+    <feature name="cots-integration-core" version="${project.version}" start-level="83" install="auto">
+        <feature prerequisite="true">cots-core</feature>
+
+        <bundle>mvn:com.teliasonera.agora.integration.alpha.i413/integration-alpha-i413-adapter/${integrationi413.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.alpha.i413/integration-alpha-i413-api/${integrationi413.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.alpha.i413/integration-alpha-i413-impl/${integrationi413.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.eam/integration-eam-api/${integrationeam.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.eam/integration-eam-impl/${integrationeam.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.edb/integration-edb-api/${integrationedb.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.edb/integration-edb-impl/${integrationedb.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.tcad/integration-tcad-api/${integrationtcad.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.tcad/integration-tcad-impl/${integrationtcad.version}</bundle>
+    </feature>
+
+
+    <!--
+        ============= COTS-SERVICE-CORE =============
+        These services are common services that perform basic operations.
+    -->
+    <feature name="cots-service-core" version="${project.version}" start-level="84" install="auto">
+        <feature prerequisite="true">cots-integration-core</feature>
+
+        <bundle>mvn:com.teliasonera.agora.customer.identity/customer-identity-api/${customeridentity.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.customer.identity/customer-identity-impl/${customeridentity.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.customer.lookup/customer-lookup-api/${customerlookup.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.customer.lookup/customer-lookup-impl-teamfacade/${customerlookup.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.security.proxy/security-proxy-api/${securityproxy.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.security.proxy/security-proxy-impl/${securityproxy.version}</bundle>
+    </feature>
+
+
+    <!--
+        ============= COTS-INTEGRATION =============
+        These services are integration services that communicates with external applications.
+    -->
+    <feature name="cots-integration" version="${project.version}" start-level="85" install="auto">
+        <feature prerequisite="true">cots-integration-core</feature>
+
+        <bundle>mvn:com.teliasonera.agora.corp.integration.c2bcache/corp-integration-c2bcache-api/${corpintegrationc2bcache.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.integration.c2bcache/corp-integration-c2bcache-impl/${corpintegrationc2bcache.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.integration.eam/corp-integration-eam-api/${corpintegrationeam.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.integration.eam/corp-integration-eam-impl/${corpintegrationeam.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.integration.insightcore/corp-integration-insightcore-api/${insightcore.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.integration.insightcore/corp-integration-insightcore-impl/${insightcore.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.ais/integration-ais-api/${integrationais.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.ais/integration-ais-datasource/${integrationais.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.ais/integration-ais-impl/${integrationais.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.alpha.i770/integration-alpha-i770-api/${integrationi770.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.alpha.i770/integration-alpha-i770-impl/${integrationi770.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.alpha.i869/integration-alpha-i869-api/${integrationalphai869.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.alpha.i869/integration-alpha-i869-impl/${integrationalphai869.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.bdlx.manageinvoice/integration-bdlx-manageinvoice-adapter/${integrationbdlx.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.bdlx.manageinvoice/integration-bdlx-manageinvoice-api/${integrationbdlx.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.bdlx.manageinvoice/integration-bdlx-manageinvoice-impl/${integrationbdlx.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.efs.adapters/integration-efs-adapters-api/${integration-efs-adapters.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.efs.adapters/integration-efs-adapters-impl/${integration-efs-adapters.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.efs.meshFacade/integration-efs-meshFacade-api/${meshFacade.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.efs.meshFacade/integration-efs-meshFacade-impl/${meshFacade.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.reflex/integration-reflex-api/${integrationreflex.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.reflex/integration-reflex-impl/${integrationreflex.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.servicenow/integration-servicenow-api/${integrationservicenow.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.servicenow/integration-servicenow-impl/${integrationservicenow.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.telepo.servicemanager/integration-telepo-servicemanager-api/${integrationteleposervicemanager.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.telepo.servicemanager/integration-telepo-servicemanager-impl/${integrationteleposervicemanager.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.c2b.invoicemetalist/integration-c2b-invoicemetalist-api/${integrationc2binvoicemetalist.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.c2b.invoicemetalist/integration-c2b-invoicemetalist-impl/${integrationc2binvoicemetalist.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.ipx.sms/ipx-adapter/${integration.ipx.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.ipx.sms/ipx-smssender-api/${integration.ipx.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.ipx.sms/ipx-smssender-impl/${integration.ipx.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.common.google.analytics/common-google-analytics-api/${common.google.analytics.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.common.google.analytics/common-google-analytics-impl/${common.google.analytics.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.leada/integration-leada-api/${integration.leada.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.leada/integration-leada-impl/${integration.leada.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.integration.crt.recommendation/integration-crt-recommendation-api/${integration-crt-recommendation.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.integration.crt.recommendation/integration-crt-recommendation-impl/${integration-crt-recommendation.version}</bundle>
+
+    </feature>
+
+    <!--
+        ============= COTS-SERVICE =============
+    -->
+    <feature name="cots-service" version="${project.version}" start-level="86" install="auto">
+        <feature prerequisite="true">cots-integration</feature>
+        <feature prerequisite="true">cots-service-core</feature>
+
+        <bundle>mvn:com.teliasonera.agora.common.audit.log/audit-log-api/${audit.log}</bundle>
+        <bundle>mvn:com.teliasonera.agora.common.audit.log/audit-log-impl/${audit.log}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.customer.identifier.business/customer-identifier-business-api/${customer-identifier-business.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.customer.identifier.business/customer-identifier-business-impl/${customer-identifier-business.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.common.recaptcha/common-recaptcha-api/${commonrecaptcha.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.common.recaptcha/common-recaptcha-impl/${commonrecaptcha.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.common.sendemail/common-sendemail-api/${common.sendemail.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.common.sendemail/common-sendemail-impl/${common.sendemail.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.customer.uxdb/customer-uxdb-api/${customeruxdb.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.customer.uxdb/customer-uxdb-impl/${customeruxdb.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.presentation.exception.handler/presentation-exception-handler-api/${presentationexceptionhandler.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.presentation.exception.handler/presentation-exception-handler-impl/${presentationexceptionhandler.version}</bundle>
+
+    </feature>
+
+    <!--
+        ============= COTS-TELIAADMIN =============
+        This is feature all cots-teliaadmin services (presentation and business).
+    -->
+    <feature name="cots-teliaadmin" version="${project.version}" start-level="90" install="auto">
+        <feature prerequisite="true">cots-service</feature>
+
+        <bundle>mvn:com.teliasonera.agora.corp.common.date/corp-common-date-api/${corp-common-date.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.common.date/corp-common-date-impl/${corp-common-date.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.addonservices.business/corp-customer-addonservices-business-api/${corpcustomeraddonservicesbusiness.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.addonservices.business/corp-customer-addonservices-business-impl/${corpcustomeraddonservicesbusiness.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.administration.business/corp-customer-administration-business-api/${corpcustomeradministrationbusiness.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.administration.business/corp-customer-administration-business-impl/${corpcustomeradministrationbusiness.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.administration/corp-customer-administration-api/${corpcustomeradministration.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.administration/corp-customer-administration-impl/${corpcustomeradministration.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.bankid/corp-customer-bankid-api/${corpcustomerbankid.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.bankid/corp-customer-bankid-impl/${corpcustomerbankid.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.billingaccounts.business/corp-customer-billingaccounts-business-api/${corpcustomerbillingaccountsbusiness.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.billingaccounts.business/corp-customer-billingaccounts-business-impl/${corpcustomerbillingaccountsbusiness.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.billingaccounts/corp-customer-billingaccounts-api/${corpcustomerbillingaccounts.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.billingaccounts/corp-customer-billingaccounts-impl/${corpcustomerbillingaccounts.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.businessinfo/corp-customer-businessinfo-api/${corpcustomerbusinessinfo.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.businessinfo/corp-customer-businessinfo-impl/${corpcustomerbusinessinfo.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.serviceweb/corp-serviceweb-api/${corpserviceweb.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.serviceweb/corp-serviceweb-impl/${corpserviceweb.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.analytics/corp-analytics-impl/${corpanalytics.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.c2bcache.configuration/corp-c2bcache-configuration-api/${corpcustomerc2bcacheconfiguration.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.c2bcache.configuration/corp-c2bcache-configuration-impl/${corpcustomerc2bcacheconfiguration.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.c2bcache.business/corp-customer-c2bcache-business-api/${corpcustomerc2bcachebusiness.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.c2bcache.business/corp-customer-c2bcache-business-impl/${corpcustomerc2bcachebusiness.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.cloudswitch.business/corp-customer-cloudswitch-business-api/${corpcustomercloudswitchbusiness.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.cloudswitch.business/corp-customer-cloudswitch-business-impl/${corpcustomercloudswitchbusiness.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.cloudswitch/corp-customer-cloudswitch-api/${corpcustomercloudswitch.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.cloudswitch/corp-customer-cloudswitch-impl/${corpcustomercloudswitch.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.email/corp-customer-email-api/${corpcustomeremail.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.email/corp-customer-email-impl/${corpcustomeremail.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.ib.security/corp-customer-ib-security-api/${corpcustomeribsecurity.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.ib.security/corp-customer-ib-security-impl/${corpcustomeribsecurity.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.installedbase/corp-customer-installedbase-api/${corpcustomerinstalledbase.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.installedbase/corp-customer-installedbase-impl/${corpcustomerinstalledbase.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.invoices.business/corp-customer-invoices-business-api/${corpcustomerinvoicesbusiness.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.invoices.business/corp-customer-invoices-business-impl/${corpcustomerinvoicesbusiness.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.invoices/corp-customer-invoices-api/${corpcustomerinvoices.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.invoices/corp-customer-invoices-impl/${corpcustomerinvoices.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.mobile.selfservice/corp-customer-mobile-selfservice-api/${corp-customer-mobile-selfservice.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.mobile.selfservice/corp-customer-mobile-selfservice-impl/${corp-customer-mobile-selfservice.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.mobilesubscription.business/corp-customer-mobilesubscription-business-api/${corpcustomermobilesubscription3x.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.mobilesubscription.business/corp-customer-mobilesubscription-business-impl/${corpcustomermobilesubscription3x.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.mobilesubscription.business/corp-customer-mobilesubscription-business-api/${corp-customer-mobilesubscription4x.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.mobilesubscription.business/corp-customer-mobilesubscription-business-impl/${corp-customer-mobilesubscription4x.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.serviceassurance/corp-customer-serviceassurance-api/${corpcustomerserviceassurance.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.serviceassurance/corp-customer-serviceassurance-impl/${corpcustomerserviceassurance.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.simcard.business/corp-customer-simcard-business-api/${corpcustomersimcardbusiness.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.simcard.business/corp-customer-simcard-business-impl/${corpcustomersimcardbusiness.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.segmentation/corp-customer-segmentation-api/${corpcustomersegmentation.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.segmentation/corp-customer-segmentation-impl/${corpcustomersegmentation.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-common-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-common-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-delivery-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-delivery-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-messageservice-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-messageservice-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-sla-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-sla-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-subscription-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-subscription-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-troubleticket-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-fml-troubleticket-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-common-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-common-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-delivery-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-delivery-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-insightuserlookup-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-insightuserlookup-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-messageservice-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-messageservice-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-reporting-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-reporting-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-sla-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-sla-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-subscription-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-subscription-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-surfblaster-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-surfblaster-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-troubleticket-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-upl-troubleticket-impl/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-validation-api/${selfservice.wanoverview.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.selfservice.wanoverview/corp-selfservice-wanoverview-validation-impl/${selfservice.wanoverview.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.dcf.order.upl/dcf-order-upl-api/${dcforderupl.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.dcf.order.upl/dcf-order-upl-impl/${dcforderupl.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.dcf.orderrequest/dcf-orderrequest-api/${dcforderrequest.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.dcf.orderrequest/dcf-orderrequest-impl/${dcforderrequest.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.manage.dcf.definitions/manage-dcf-definitions-api/${managedcfdefinition.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.manage.dcf.definitions/manage-dcf-definitions-impl/${managedcfdefinition.version}</bundle>
+
+        <bundle>mvn:com.teliasonera.agora.corp.customer.recommendation/corp-customer-recommendation-api/${corp-customer-recommendation.version}</bundle>
+        <bundle>mvn:com.teliasonera.agora.corp.customer.recommendation/corp-customer-recommendation-impl/${corp-customer-recommendation.version}</bundle>
+    </feature>
+
+</features>

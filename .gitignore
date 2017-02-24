@@ -1,0 +1,29 @@
+syntax: regexp
+\.project
+\.metadata
+\.settings
+\.classpath
+\.idea
+\.checkstyle
+target/
+\.orig
+\.fbprefs
+\.ruleset
+\.pmd
+\.iml
+\.ipr
+\.iws
+\.DS_Store
+\.idea
+\.repository
+
+syntax: glob
+*/target/*
+release.properties
+*.releaseBackup
+catalog.xml
+nb-configuration.xml
+*.*~
+*.iml
+pom.xml.versionsBackup
+activemq-data
