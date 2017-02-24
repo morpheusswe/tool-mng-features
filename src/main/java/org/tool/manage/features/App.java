@@ -39,7 +39,7 @@ public class App {
         System.out.println("Root URL : " + rootURL);
 
         // Load the directory as a resource
-        final URL pomFileURL = ClassLoader.getSystemResource("pom-files/pom.xml");
+        final URL pomFileURL = ClassLoader.getSystemResource("pom.xml");
         System.out.println("Url: " + pomFileURL.toString());
         // Turn the resource into a File object
         File pomFile = null;
