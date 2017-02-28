@@ -29,6 +29,7 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.tool.manage.features.model.BundleModel;
+import org.tool.manage.features.model.FeatureModel;
 
 /**
  * Hello world!
@@ -59,8 +60,10 @@ public class App {
 	List<BundleModel> featureBundlesNo1 = getAllBundlesForRequiredFeature(args[0]);
 	List<BundleModel> featureBundlesNo2 = getAllBundlesForRequiredFeature(args[1]);
 	
-	BundlesUtils bundlesUtils = new BundlesUtils(featureBundlesNo1, featureBundlesNo2);
-	bundlesUtils.countAndDisplayBundelsNumber();
+//	BundlesUtils bundlesUtils = new BundlesUtils(featureBundlesNo1, featureBundlesNo2);
+//	bundlesUtils.countAndDisplayBundelsNumber();
+	
+	new FeatureUtils(new FeatureModel(featureBundlesNo1), new FeatureModel(featureBundlesNo2)).display(); 
 	
 	
 	
